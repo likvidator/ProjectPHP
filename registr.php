@@ -20,34 +20,18 @@ if (!empty($_POST['login']) AND !empty($_POST['password']))
 	$phone=mysqli_real_escape_string($connect,htmlspecialchars($_POST['phone']));
 	$email=mysqli_real_escape_string($connect,htmlspecialchars($_POST['email']));
 	$pass=md5($password);
-
-// if (mysql_result(mysqli_query($connect,"SELECT COUNT(*) FROM users WHERE username = '".$login."' LIMIT 1;"), 1) != 0)
-// { 
-// 	echo 'Выбранный логин уже зарегистрирован!'; 
-// 	exit(); 
-// } 
-
-// if (mysql_result(mysqli_query($connect,"select * from User where Name='".$login."';"),0) != 0)
-// { 
-// 	echo 'Выбранный логин уже зарегистрирован!'; 
-// 	exit(); 
-// } 
-$row = mysqli_fetch_array(mysqli_query($connect,"select * from User where Name='".$login."';"), MYSQLI_NUM);
-if (count($row)!=0)
-{
-	echo 'Выбранный логин уже зарегистрирован!'; 
-	exit(); 
-}
-else
-{
-	mysqli_query($connect,"INSERT INTO User (Name, Password,Phone,email) VALUES ('$login','$pass','$phone','$email')");
-
-
-	echo 'Вы успешно зарегистрированы!'; 
-	echo "<a href=\"./index.php\">На главную</a><br>";
-	// sleep(2);
-	// header ('Location: index.php'); 
-	exit(); 
+	$row = mysqli_fetch_array(mysqli_query($connect,"select * from User where Name='".$login."';"), MYSQLI_NUM);
+	if (count($row)!=0)
+	{
+		echo 'Выбранный логин уже зарегистрирован!'; 
+		exit(); 
+	}
+	else
+	{
+		mysqli_query($connect,"INSERT INTO User (Name, Password,Phone,email) VALUES ('$login','$pass','$phone','$email')");
+		echo 'Вы успешно зарегистрированы!'; 
+		echo "<a href=\"./index.php\">На главную</a><br>";
+		exit(); 
 	} 
 }
 

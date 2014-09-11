@@ -12,31 +12,26 @@ header ('Location: index.php');
 exit(); 
 } 
 
-if(!empty($_POST[login]) AND !empty($_POST[password])) 
-{ 
-$login = mysqli_real_escape_string($connect,htmlspecialchars($_POST['login']));
-$password = mysqli_real_escape_string($connect,htmlspecialchars($_POST['password']));
-$pass=md5($password);
-
-$search_user = mysql_result(mysqli_query($connect,"SELECT COUNT(*) FROM User WHERE Name = '$login' AND Password = '$pass'"), 0);
-if($search_user == 0) 
-{ 
-	echo 'Введенные данные неправильные или пользователь не найден.';
-
+if(!empty($_POST['login']) AND !empty($_POST['password'])) 
+{ 	
+	$login = mysqli_real_escape_string($connect,htmlspecialchars($_POST['login']));
+	$password = mysqli_real_escape_string($connect,htmlspecialchars($_POST['password']));
+	$pass=md5($password);
+	$row = mysqli_fetch_array(mysqli_query($connect,"SELECT COUNT(*) FROM User WHERE Name = '$login' AND Password = '$pass'"), MYSQLI_NUM);
+	if (count($row)==0)
+	{
+		echo 'Введенные данные неправильные или пользователь не найден.'; 
+		exit(); 
+	}
+	else 
+	{ 
+	$time = 60*60*24; 
+	setcookie('username', $login, time()+$time); 
+	setcookie('password', md5($password), time()+$time); 
+	echo 'Вы успешно авторизировались на сайте!'; 
+	echo "<a href=\"./index.php\">На главную</a><br>";
 	exit(); 
-} 
-else 
-{ 
-$time = 60*60*24; 
-setcookie('username', $login, time()+$time); 
-setcookie('password', md5($password), time()+$time); 
-
-echo 'Вы успешно авторизировались на сайте!'; 
-echo "<a href=\"./index.php\">На главную</a><br>";
-// sleep(2);
-// header ('Location: index.php'); 
-exit(); 
-} 
+	} 
 } 
 echo ' 
 <div class="container">

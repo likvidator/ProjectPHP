@@ -16,25 +16,25 @@ if ((!empty($_POST['Price'])) AND (!empty($_POST['Name'])) AND (!empty($_POST['d
   $type=$_POST['Type'];
   // echo $type ."<br>";
 
-  $Price = mysql_real_escape_string(htmlspecialchars($_POST['Price']));
+  $Price = mysqli_real_escape_string($connect,htmlspecialchars($_POST['Price']));
   // echo $Price ."<br>";
 
-	$name = mysql_real_escape_string(htmlspecialchars($_POST['Name']));
+	$name = mysqli_real_escape_string($connect,htmlspecialchars($_POST['Name']));
   // echo $name ."<br>";
 
-	$description = mysql_real_escape_string(htmlspecialchars($_POST['description']));
+	$description = mysqli_real_escape_string($connect,htmlspecialchars($_POST['description']));
   // echo $description ."<br>";
 
   $_Type_Product=$_POST['Type_Product'];
-  $Type_Product=mysql_fetch_assoc(mysql_query("select id from Type where Value='$_Type_Product';"))['id'];
+  $Type_Product=mysqli_fetch_assoc(mysqli_query($connect,"select id from Type where Value='$_Type_Product';"))['id'];
   // echo $Type_Product ."<br>";
 
   $_user=$_COOKIE['username'];
-  $user= mysql_fetch_assoc(mysql_query("select id from User where Name='$_user';"))['id'];
+  $user= mysqli_fetch_assoc(mysqli_query($connect,"select id from User where Name='$_user';"))['id'];
   // echo $user ."<br>";
 
   $_City=$_POST['City'];
-  $City= mysql_fetch_assoc(mysql_query("select id from City where Value='$_City';"))['id'];
+  $City= mysqli_fetch_assoc(mysqli_query($connect,"select id from City where Value='$_City';"))['id'];
   // echo $City ."<br>";
 
   if (isset($_FILES['image'])) {
@@ -69,7 +69,7 @@ if ((!empty($_POST['Price'])) AND (!empty($_POST['Name'])) AND (!empty($_POST['d
   }
   // echo $track;
   
-mysql_query("INSERT INTO Announcement (Type, Price,Name,Description,image,Type_Product,User,City) VALUES ('$type',$Price,'$name','$description', '$track',$Type_Product,$user,$City)");
+mysqli_query($connect,"INSERT INTO Announcement (Type, Price,Name,Description,image,Type_Product,User,City) VALUES ('$type',$Price,'$name','$description', '$track',$Type_Product,$user,$City)");
 echo "Объявление успешно добавлено"."<br>";
 echo "<a href=\"./index.php\">На главную</a><br>";
 

@@ -8,8 +8,8 @@ if(!$user) {
 header ('Location: index.php'); 
 exit(); 
 }
-$city = mysql_query("select * from City;");
-$type = mysql_query("select * from Type;");
+//$city = mysql_query("select * from City;");
+//$type = mysql_query("select * from Type;");
 
 ?>
 
@@ -43,21 +43,25 @@ $type = mysql_query("select * from Type;");
  -->
 Город:
 <?php
-   echo "<select name ='City'>";
-  while ($row = mysql_fetch_assoc($city)) {
+echo "<select name ='City'>";
+$result = mysqli_query($connect,"select * from City;");
+while ($row = mysqli_fetch_assoc($result)) 
+{
     echo "<option>" . $row['Value'] . "</option>";
-  }
-  echo "</select>";
+}
+echo "</select>";
 ?>
 <br>
 Категория:
  
 <?php
-   echo "<select name ='Type_Product'>";
-  while ($row = mysql_fetch_assoc($type)) {
+echo "<select name ='Type_Product'>";
+$result = mysqli_query($connect,"select * from Type;");
+while ($row = mysqli_fetch_assoc($result)) 
+{
     echo "<option>" . $row['Value'] . "</option>";
-  }
-  echo "</select>";
+}
+echo "</select>";
 ?><br>
 <input type="submit" value="Найти" /><br> 
 <a href="./index.php">На главную</a><br>

@@ -17,5 +17,4 @@ $result = mysqli_query($connect,"select * from City;");
     while ($row = mysqli_fetch_assoc($result)) {
         printf ("%s \n", $row["Value"]);
     }
-
 ?>

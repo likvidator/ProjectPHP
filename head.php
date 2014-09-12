@@ -7,28 +7,28 @@ if(!$user) {
 header ('Location: index.php'); 
 exit(); 
 }
-$question=(mysql_query("select * from Announcement ;"));
+$question=(mysqli_query($connect,"select * from Announcement ;"));
 echo "<form  > ";
-while ($row = mysql_fetch_assoc($question)) {
+while ($row = mysqli_fetch_assoc($question)) {
 	$scr= $row['image'];
 	if ($scr=="")
 	{
-		echo "<img src=\"/myproject/image/null.png\" width=\"10%\" ><br>";
+		echo "<img src=\"/image/null.png\" width=\"10%\" ><br>";
 	}
 	else
 	{
-		echo "<img src=\"/myproject/image/$scr\" width=\"10%\" ><br>";
+		echo "<img src=\"/image/$scr\" width=\"10%\" ><br>";
 	}
 	echo  "Тип объявления:" . $row['Type'] . "<br>";
 	echo  "Цена:" . $row['Price'] . "<br>";
 	echo  "Название:" . $row['Name'] . "<br>";
 	echo  "Описание:" . $row['Description'] . "<br>";
 	$a=$row['Type_Product'];
-	echo  "Тип продукта:" .  mysql_fetch_assoc(mysql_query("select Value from Type where id='$a';"))['Value']  .  "<br>";
+	echo  "Тип продукта:" .  mysqli_fetch_assoc(mysqli_query($connect,"select Value from Type where id='$a';"))['Value']  .  "<br>";
 	$b=$row['City'];
-	echo  "Город:" . mysql_fetch_assoc(mysql_query("select Value from City where id='$b';"))['Value'] . "<br>";
+	echo  "Город:" . mysqli_fetch_assoc(mysqli_query($connect,"select Value from City where id='$b';"))['Value'] . "<br>";
 	$id=$row['User'];
-	echo  "Телефон:" . mysql_fetch_assoc(mysql_query("select Phone from User where id='$id';"))['Phone'] . "<br>";
+	echo  "Телефон:" . mysqli_fetch_assoc(mysqli_query($connect,"select Phone from User where id='$id';"))['Phone'] . "<br>";
 	
 	
 	

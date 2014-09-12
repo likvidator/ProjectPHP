@@ -11,20 +11,26 @@ exit();
 $a=$_GET['result'];
 
 $_user=$_COOKIE['username'];
-$user= mysql_fetch_assoc(mysql_query("select id from User where Name='$_user';"))['id'];
+$user= mysqli_fetch_assoc(mysqli_query($connect,"select id from User where Name='$_user';"))['id'];
 
-$search_user = mysql_result(mysql_query("SELECT COUNT(*) FROM Announcement WHERE User = '$user' AND id_Product = '$a'"), 0);
-if($search_user == 0) 
-{ 
-	echo 'Введенные данные неправильные';
-	exit(); 
-} 
+//$search_user = mysqli_result(mysqli_query($connect,"SELECT COUNT(*) FROM Announcement WHERE User = '$user' AND id_Product = '$a'"), 0);
+//if($search_user == 0) 
+//{ 
+//	echo 'Введенные данные неправильные';
+//	exit(); 
+//} 
+$row = mysqli_fetch_array(mysqli_query($connect,"SELECT COUNT(*) FROM Announcement WHERE User = '$user' AND id_Product = '$a'"), MYSQLI_NUM);
+if (count($row)==0)
+{
+    echo 'Введенные данные неправильные'; 
+    exit(); 
+}
 else
 {
-	$file="image/" . mysql_fetch_assoc(mysql_query("select image from Announcement where id_Product = '$a' ;"))['image'];
+	$file="image/" . mysqli_fetch_assoc(mysqli_query($connect,"select image from Announcement where id_Product = '$a' ;"))['image'];
 	unlink($file);
 	//echo "$file";
-	$query=mysql_query("DELETE FROM Announcement WHERE id_Product = $a");
+	$query=mysqli_query($connect,"DELETE FROM Announcement WHERE id_Product = $a");
 	echo "Запись удалена<br>";
 	echo "<a href=\"./MyPage.php\">Назад</a><br>";
 }

@@ -26,6 +26,7 @@ if(!empty($_POST['login']) AND !empty($_POST['password']))
 	else 
 	{ 
 	$time = 60*60*24; 
+        
 	setcookie('username', $login, time()+$time); 
 	setcookie('password', md5($password), time()+$time); 
 	echo 'Вы успешно авторизировались на сайте!'; 

@@ -13,9 +13,9 @@ mysqli_set_charset($connect,'utf8');
 //$a=mysqli_query($connect,"INSERT INTO User (Name, Password,Phone,email) VALUES ('123','12','12','12')");
 $quary=mysqli_query($connect,"select id from User where Name='adminawd';");
 //$a=mysqli_result($quary);
-$row = mysqli_fetch_array(mysqli_query($connect,"select id from User where Name='adminawd';"), MYSQLI_NUM);
-if (count($row)==0)
-	printf("No");
-else
-	printf("Yes");
+$result = mysqli_query($connect,"select * from City;");
+    while ($row = mysqli_fetch_assoc($result)) {
+        printf ("%s \n", $row["Value"]);
+    }
+
 ?>

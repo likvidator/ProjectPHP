@@ -4,8 +4,6 @@
 <head>
     <meta charset="utf-8">
 	<title>Главная страница</title>
-
-
 </head>
 <?php
  ini_set('display_errors','On');
@@ -25,7 +23,6 @@ if(!$user)
 		echo '<a href="./MyPage.php">Мои объявление</a><br>';
 		echo '<a href="./head.php">Все объявления</a><br>';
 	 	echo "<a href=\"./out.php\">Выйти</a>";
-
 	}
 ?>
 <body>

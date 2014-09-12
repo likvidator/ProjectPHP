@@ -7,7 +7,6 @@ if($user)
 { 
 	setcookie('username', '', time()-1); 
 	setcookie('password', '', time()-1); 
-	session_destroy(); 
 	echo 'Вы успешно вышли!'; 
 	echo "<a href=\"./index.php\">На главную</a><br>";
 	// sleep(2);

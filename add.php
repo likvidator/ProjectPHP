@@ -8,8 +8,8 @@ if(!$user) {
 header ('Location: index.php'); 
 exit(); 
 } 
-$city = mysql_query("select * from City;");
-$type = mysql_query("select * from Type;");
+$city = mysqli_query($connect,"select * from City;");
+$type = mysqli_query($connect,"select * from Type;");
 
 ?>
 
